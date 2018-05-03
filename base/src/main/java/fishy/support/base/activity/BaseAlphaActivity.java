@@ -12,9 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import java.lang.reflect.Field;
+
+import fishy.support.base.R;
 
 /**
  * 透明沉浸式状态栏抽象类
@@ -33,12 +36,18 @@ import java.lang.reflect.Field;
 public abstract class BaseAlphaActivity extends AppCompatActivity {
 
     private ViewGroup root;
+    private View content;
     private Mode alphaMode;
     private DrawerLayout drawerLayout;
     private View fakeStatusBarView;
+    private View colorStatusBarView;
+    private View maskView;
     int statusBarColor;
+    int initViewFlag;
+
+    boolean isCreated;
     //默认不带蒙版效果
-    int maskAlpha = 0;
+    int maskAlpha;
 
     boolean isUseLightIcon;
 
@@ -61,8 +70,17 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         root = createRootLayout(this);
+        //初始化时获得mode
         alphaMode = chooseAlphaMode();
         statusBarColor = getResources().getColor(android.R.color.darker_gray);
+        //默认不使用白色状态栏图标
+        isUseLightIcon = false;
+        //默认没有mask效果
+        this.maskAlpha = setTransparentViewAlpha(0);
+        //初始的systemUIVisibility
+        initViewFlag = getWindow().getDecorView().getSystemUiVisibility();
+        //未创建相关status
+        isCreated = false;
         super.setContentView(root);
     }
 
@@ -102,6 +120,36 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
         root.addView(view, params);
     }
 
+    private void changeStatusIconStyle(Mode mode) {
+        switch (mode) {
+            case NORMAL_COLOR:
+            case DRAWER_LAYOUT:
+                //如果是6.0，检查是否使用白色款图标
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isUseLightIcon) {
+                    getWindow()
+                            .getDecorView()
+                            .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                } else {
+                    getWindow()
+                            .getDecorView()
+                            .setSystemUiVisibility(initViewFlag);
+                }
+                break;
+            case IMAGE_TOOLBAR:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isUseLightIcon) {
+                    getWindow()
+                            .getDecorView()
+                            .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                } else {
+                    getWindow()
+                            .getDecorView()
+                            .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                }
+                break;
+        }
+    }
+
     /**
      * 设置是否使用白色款图标，6.0以上有效,默认不适用
      *
@@ -109,11 +157,27 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
      */
     public void setUseLightIcon(boolean useLightIcon) {
         isUseLightIcon = useLightIcon;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !useLightIcon) {
-            getWindow()
-                    .getDecorView()
-                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
+        changeStatusIconStyle(alphaMode);
+    }
+
+    /**
+     * 设置状态栏的颜色
+     *
+     * @param color
+     */
+    protected void setStatusColor(int color) {
+        this.statusBarColor = color;
+        changeAlphaStatusBarColor(this, statusBarColor);
+    }
+
+    /**
+     * 设置mask蒙版的透明度
+     *
+     * @param progress 0~100
+     */
+    protected void setMaskAlpha(int progress) {
+        this.maskAlpha = setTransparentViewAlpha(progress * 1f / 100);
+        changeAlphaStatusBarMask(this);
     }
 
     /**
@@ -131,11 +195,11 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
      * @param context
      */
     private ViewGroup createRootLayout(Context context) {
-        LinearLayout root = new LinearLayout(context);
+        FrameLayout root = new FrameLayout(context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         root.setLayoutParams(params);
-        root.setOrientation(LinearLayout.VERTICAL);
+//        root.setOrientation(LinearLayout.VERTICAL);
         return root;
     }
 
@@ -145,6 +209,9 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
      * @param context
      */
     private void createAlphaStatusBar(Context context) {
+        if (isCreated) {
+            return;
+        }
         switch (alphaMode) {
             case NORMAL_COLOR:
                 createColorStatusBar(context, statusBarColor);
@@ -156,14 +223,65 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
                 createDrawerLayoutStatusBar(context, statusBarColor);
                 break;
         }
-        //默认不使用白色图标
-        setUseLightIcon(false);
-        addTransparentView(context);
+        isCreated = true;
+//        addTransparentView(context);
     }
 
     /**
+     * 改变状态栏颜色
+     *
+     * @param context
+     * @param color
+     */
+    private void changeAlphaStatusBarColor(Context context, int color) {
+        switch (alphaMode) {
+            case NORMAL_COLOR:
+                if (isCreated) {
+                    changeColorStatusBar(color);
+                } else {
+                    createColorStatusBar(context, color);
+                }
+                break;
+            case DRAWER_LAYOUT:
+
+                break;
+            case IMAGE_TOOLBAR:
+                //imageMode下不处理状态栏颜色
+                break;
+        }
+    }
+
+    /**
+     * 改变状态栏的蒙版透明度
+     *
+     * @param context
+     */
+    private void changeAlphaStatusBarMask(Context context) {
+        switch (alphaMode) {
+            case NORMAL_COLOR:
+                if (isCreated) {
+                    changeColorStatusBar(statusBarColor);
+                } else {
+                    createColorStatusBar(context, statusBarColor);
+                }
+                break;
+            case DRAWER_LAYOUT:
+
+                break;
+            case IMAGE_TOOLBAR:
+                if (isCreated) {
+                    changeTransparentStatusBar();
+                } else {
+                    createTransparentStatusBar();
+                }
+                break;
+        }
+    }
+
+
+    /**
      * 创建指定颜色的状态栏
-     * 对应mode为NORMAL_COLOR
+     * 对应mode为{@link Mode#NORMAL_COLOR}
      *
      * @param context
      */
@@ -173,7 +291,7 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().setStatusBarColor(calculateStatusColor(color, setTransparentViewAlpha()));
+            getWindow().setStatusBarColor(calculateStatusColor(color, maskAlpha));
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             View view = new View(this);
@@ -181,6 +299,22 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
                     getStatusBarHeight(context)));
             view.setBackgroundColor(color);
             root.addView(view, 0);
+            colorStatusBarView = view;
+        }
+        changeStatusIconStyle(Mode.NORMAL_COLOR);
+    }
+
+    /**
+     * 修改状态栏的颜色或者蒙版浓度
+     * 对应mode为{@link Mode#NORMAL_COLOR}
+     *
+     * @param color
+     */
+    private void changeColorStatusBar(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(calculateStatusColor(color, maskAlpha));
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            colorStatusBarView.setBackgroundColor(color);
         }
     }
 
@@ -190,10 +324,20 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
      */
     private void createTransparentStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow()
-                    .getDecorView()
-                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        addTransparentView(this);
+        changeStatusIconStyle(Mode.IMAGE_TOOLBAR);
+    }
+
+    /**
+     * 修改透明状态栏的蒙版浓度
+     */
+    private void changeTransparentStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            maskView.setBackgroundColor(Color.argb(maskAlpha, 0, 0, 0));
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
@@ -206,6 +350,9 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
      * @param context
      */
     private void createDrawerLayoutStatusBar(Context context, int color) {
+        if (drawerLayout == null) {
+            throw new IllegalArgumentException("your drawerLayout should not be null!");
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -213,9 +360,6 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-        // 生成一个状态栏大小的矩形
-        // 添加 statusBarView 到布局中
-        drawerLayout = insertDrawerLayout();
         ViewGroup contentLayout = (ViewGroup) drawerLayout.getChildAt(0);
         if (fakeStatusBarView != null) {
             if (fakeStatusBarView.getVisibility() == View.GONE) {
@@ -233,6 +377,7 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
                     params.rightMargin, params.bottomMargin);
         }
         setDrawerLayoutProperty(drawerLayout, contentLayout);
+        changeStatusIconStyle(Mode.IMAGE_TOOLBAR);
     }
 
     /**
@@ -293,9 +438,6 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
 //            createColorStatusBar(context);
 //        }
 //    }
-    protected void changeStatusColor(int color) {
-
-    }
 
 
     /**
@@ -311,24 +453,27 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
 
     /**
      * 设置DrawerLayout
-     * 当mode不是DrawerLayout时，传null即可
      *
+     * @param drawerLayout
      * @return
      */
-    protected abstract DrawerLayout insertDrawerLayout();
+    protected void setDrawerLayout(DrawerLayout drawerLayout) {
+        this.drawerLayout = drawerLayout;
+    }
 
     /**
      * 添加黑色为底的透明蒙版View
      */
     private void addTransparentView(Context context) {
-        if (alphaMode != Mode.NORMAL_COLOR || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            View transparentView = new View(context);
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    getStatusBarHeight(context));
-            transparentView.setLayoutParams(params);
-            transparentView.setBackgroundColor(Color.argb(setTransparentViewAlpha(), 0, 0, 0));
-            root.addView(transparentView);
-        }
+        View transparentView = new View(context);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                getStatusBarHeight(context));
+        transparentView.setLayoutParams(params);
+        transparentView.setBackgroundColor(Color.argb(maskAlpha, 0, 0, 0));
+        //注意FrameLayout的child添加顺序
+        root.addView(transparentView);
+
+        maskView = transparentView;
     }
 
     /**
@@ -336,8 +481,8 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
      *
      * @param percent 0~1f
      */
-    protected void setTransparentViewAlpha(float percent) {
-        this.maskAlpha = (int) (0xff * percent + 0.5f);
+    protected int setTransparentViewAlpha(float percent) {
+        return (int) (0xff * percent + 0.5f);
     }
 
     /**
@@ -356,7 +501,6 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
             field = c.getField("status_bar_height");
             x = Integer.parseInt(field.get(obj).toString());
             statusBarHeight = context.getResources().getDimensionPixelSize(x);
-//            Log.v("test", "the status bar height is : " + statusBarHeight);
         } catch (Exception e1) {
             e1.printStackTrace();
         }

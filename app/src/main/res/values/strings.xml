@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">FishySupportSample</string>
+
+    <string name="sample_base_alpha_activity1">NormalColorStatusbar</string>
+    <string name="sample_base_alpha_activity2">ImageHeaderStatusbar</string>
+    <string name="sample_base_alpha_activity3">DrawerlayoutStatusbar</string>
+
+    <string name="btn_tv_create_random_color">生成随机颜色</string>
 </resources>
