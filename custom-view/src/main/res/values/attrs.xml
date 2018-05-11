@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ColorIndicatorProgressBar">
+
+    </declare-styleable>
+
+    <declare-styleable name="StatusRingView">
+        <attr name="ringColor" format="color"/>
+        <attr name="ringProgressColor" format="color"/>
+        <attr name="ringWidth" format="dimension"/>
+        <attr name="ringTextColor" format="color" />
+        <attr name="ringTextSize" format="dimension" />
+        <attr name="sweepAngle" format="float"/>
+    </declare-styleable>
+</resources>
