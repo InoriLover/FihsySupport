@@ -10,6 +10,7 @@ import com.local.sample.base.activity.SampleBaseAlphaActivity;
 import com.local.sample.base.activity.SampleBaseAlphaActivity2;
 import com.local.sample.base.activity.SampleBaseAlphaActivity3;
 import com.local.sample.customview.ColorIndicatorBarSample;
+import com.local.sample.customview.CountDownProgressBarSample;
 
 import fishy.support.view.ColorIndicatorProgressBar;
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnImageHead;
     Button btnDrawerLayout;
     Button btnColorIndicatorBar;
+    Button btnCountDownProgressBar;
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -40,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent4 = new Intent(MainActivity.this, ColorIndicatorBarSample.class);
                     startActivity(intent4);
                     break;
+                case R.id.btnCountDownProgressBar:
+                    Intent intent5 = new Intent(MainActivity.this, CountDownProgressBarSample.class);
+                    startActivity(intent5);
+                    break;
             }
         }
     };
@@ -57,9 +63,11 @@ public class MainActivity extends AppCompatActivity {
         btnImageHead = findViewById(R.id.btnImageHead);
         btnDrawerLayout = findViewById(R.id.btnDrawerlayout);
         btnColorIndicatorBar = findViewById(R.id.btnColorIndicatorBar);
+        btnCountDownProgressBar = findViewById(R.id.btnCountDownProgressBar);
         btnNormalColor.setOnClickListener(onClickListener);
         btnImageHead.setOnClickListener(onClickListener);
         btnDrawerLayout.setOnClickListener(onClickListener);
         btnColorIndicatorBar.setOnClickListener(onClickListener);
+        btnCountDownProgressBar.setOnClickListener(onClickListener);
     }
 }

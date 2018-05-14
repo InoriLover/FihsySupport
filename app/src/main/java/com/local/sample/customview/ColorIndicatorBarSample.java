@@ -7,14 +7,14 @@ import android.widget.SeekBar;
 
 import com.local.sample.R;
 
-import fishy.support.view.ColorIndicatorProgressBarCopy;
+import fishy.support.view.IndicatorProgressBar;
 
 /**
  * Created by DN2017030300 on 2018/5/10.
  */
 
 public class ColorIndicatorBarSample extends AppCompatActivity {
-    ColorIndicatorProgressBarCopy mColorIndicatorProgressBar;
+    IndicatorProgressBar mColorIndicatorProgressBar;
     SeekBar seekBar;
 
     @Override
@@ -26,7 +26,7 @@ public class ColorIndicatorBarSample extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mColorIndicatorProgressBar.setProgress(progress);
+                mColorIndicatorProgressBar.setValue(progress);
             }
 
             @Override
@@ -39,5 +39,26 @@ public class ColorIndicatorBarSample extends AppCompatActivity {
 
             }
         });
+
+        //配置indicator属性
+        mColorIndicatorProgressBar.setShowAxis(false);
+        //指标针往内部嵌入的off
+        mColorIndicatorProgressBar.setRingAxisOff(6);
+        mColorIndicatorProgressBar.setLowTv("低");
+        mColorIndicatorProgressBar.setNormalTv("一般");
+        mColorIndicatorProgressBar.setHighTv("高");
+        mColorIndicatorProgressBar.setSubDesTv("健康宝宝几率");
+        mColorIndicatorProgressBar.setTvUnit("%");
+        mColorIndicatorProgressBar.setRingValueColor(getResources().getColor(R.color.gray));
+        mColorIndicatorProgressBar.setRingValueSize(14);
+        mColorIndicatorProgressBar.setRangeColor(getResources().getColor(R.color.colorPrimary));
+        mColorIndicatorProgressBar.setRangeSize(14);
+        mColorIndicatorProgressBar.setCenterTextColor(getResources().getColor(R.color.black));
+        mColorIndicatorProgressBar.setCenterTextSize(24);
+        mColorIndicatorProgressBar.setCenterSubColor(getResources().getColor(R.color.soft_gray));
+        mColorIndicatorProgressBar.setCenterSubSize(12);
+
+
+        mColorIndicatorProgressBar.refresh();
     }
 }

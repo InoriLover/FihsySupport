@@ -33,4 +33,10 @@
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:text="@string/sample_color_indicator_progressbar"/>
+    <Button
+        android:id="@+id/btnCountDownProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="@string/sample_count_down_progressbar"/>
 </LinearLayout>

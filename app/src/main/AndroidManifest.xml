@@ -22,17 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".base.activity.SampleBaseAlphaActivity">
+        <activity android:name=".base.activity.SampleBaseAlphaActivity">
 
         </activity>
-        <activity android:name=".base.activity.SampleBaseAlphaActivity2">
-        </activity>
-        <activity android:name=".base.activity.SampleBaseAlphaActivity3">
-        </activity>
-        <activity
-            android:name=".customview.ColorIndicatorBarSample">
-        </activity>
+        <activity android:name=".base.activity.SampleBaseAlphaActivity2"></activity>
+        <activity android:name=".base.activity.SampleBaseAlphaActivity3"></activity>
+        <activity android:name=".customview.ColorIndicatorBarSample"></activity>
+        <activity android:name=".customview.CountDownProgressBarSample"></activity>
     </application>
 
 </manifest>

@@ -8,6 +8,11 @@
     <color name="skyblue">#85deff</color>
     <color name="white">#ffffff</color>
     <color name="silver">#f0f0f0</color>
+    <color name="ring_in_color">#FE9DB4</color>
+    <color name="peach_bkg_color">#FF97B0</color>
+    <color name="transparent_white">#72fff0f5</color>
 
-
+    <color name="gray">#9293A7</color>
+    <color name="soft_gray">#BCBBC9</color>
+    <color name="black">#000000</color>
 </resources>

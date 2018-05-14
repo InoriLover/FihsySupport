@@ -4,12 +4,4 @@
 
     </declare-styleable>
 
-    <declare-styleable name="StatusRingView">
-        <attr name="ringColor" format="color"/>
-        <attr name="ringProgressColor" format="color"/>
-        <attr name="ringWidth" format="dimension"/>
-        <attr name="ringTextColor" format="color" />
-        <attr name="ringTextSize" format="dimension" />
-        <attr name="sweepAngle" format="float"/>
-    </declare-styleable>
 </resources>

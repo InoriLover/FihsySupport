@@ -73,8 +73,8 @@ public class ColorIndicatorProgressBar extends View {
 
 //            roundColor = a.getColor(R.styleable.StatusRingView_ringColor, getResources().getColor(android.R.color.darker_gray));
 //            roundProgressColor = a.getColor(R.styleable.StatusRingView_ringProgressColor, getResources().getColor(android.R.color.holo_red_dark));
-//            textColor = a.getColor(R.styleable.StatusRingView_ringTextColor, getResources().getColor(android.R.color.holo_blue_dark));
-//            textSize = a.getDimension(R.styleable.StatusRingView_ringTextSize, 22f);
+//            countTextColor = a.getColor(R.styleable.StatusRingView_ringTextColor, getResources().getColor(android.R.color.holo_blue_dark));
+//            countTextSize = a.getDimension(R.styleable.StatusRingView_ringTextSize, 22f);
 //            roundWidth = a.getDimension(R.styleable.StatusRingView_ringWidth, 10f);
 //            sweepAngle = a.getFloat(R.styleable.StatusRingView_sweepAngle, 270f);
 
