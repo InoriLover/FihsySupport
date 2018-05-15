@@ -6,6 +6,7 @@
     <string name="sample_base_alpha_activity3">DrawerlayoutStatusbar</string>
     <string name="sample_color_indicator_progressbar">ColorIndicatorBar</string>
     <string name="sample_count_down_progressbar">CountDownProgressBar</string>
+    <string name="sample_gradient_bar">GradientBar</string>
 
     <string name="btn_tv_create_random_color">生成随机颜色</string>
 </resources>

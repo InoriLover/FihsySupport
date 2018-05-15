@@ -11,6 +11,11 @@
     <color name="ring_in_color">#FE9DB4</color>
     <color name="peach_bkg_color">#FF97B0</color>
     <color name="transparent_white">#72fff0f5</color>
+    <color name="gradient_bkg">#E2DCEA</color>
+    <color name="gradient_start">#8E76C0</color>
+    <color name="gradient_end">#F08AA8</color>
+    <color name="soft_text_gray">#A7A7A7</color>
+
 
     <color name="gray">#9293A7</color>
     <color name="soft_gray">#BCBBC9</color>
