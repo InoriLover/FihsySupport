@@ -1,4 +1,4 @@
-package com.local.sample.customview;
+package com.local.sample.extra.customview;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -47,6 +47,8 @@ public class GradientBarSample extends AppCompatActivity {
         gradientBar.setBkgBarColor(getResources().getColor(R.color.gradient_bkg));
         gradientBar.setGradientStartColor(getResources().getColor(R.color.gradient_start));
         gradientBar.setGradientEndColor(getResources().getColor(R.color.gradient_end));
+        gradientBar.setValueYOff(2);
+        gradientBar.setDesYOff(4);
         gradientBar.setValueTvSize(12);
         gradientBar.setDesTvSize(12);
         gradientBar.setBarHeight(16);

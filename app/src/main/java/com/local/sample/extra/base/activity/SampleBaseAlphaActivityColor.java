@@ -1,4 +1,4 @@
-package com.local.sample.base.activity;
+package com.local.sample.extra.base.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,7 +16,7 @@ import fishy.support.util.RandomUtil;
  * Created by Fishy on 2018/5/3.
  */
 
-public class SampleBaseAlphaActivity extends BaseAlphaActivity {
+public class SampleBaseAlphaActivityColor extends BaseAlphaActivity {
     View toolbar;
     Button btnRandomColor;
     SeekBar seekBar;
@@ -27,6 +27,7 @@ public class SampleBaseAlphaActivity extends BaseAlphaActivity {
         setContentView(R.layout.activity_sample_base_alpha_normal);
         setStatusColor(getResources().getColor(R.color.pink));
         initView();
+        setUseLightIcon(true);
     }
 
     private void initView() {

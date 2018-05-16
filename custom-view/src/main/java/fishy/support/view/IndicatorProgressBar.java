@@ -46,6 +46,13 @@ public class IndicatorProgressBar extends View {
     int mCenterTextSize;
     int mCenterSubSize;
 
+    //值的off
+    int valueYoff;
+    //值描述的off
+    int valueDesYoff;
+    //指示器的宽度(高度等比缩放)
+    int indicatorWidth;
+
     //当前值
     int value;
     //最小/大值范围
@@ -148,7 +155,11 @@ public class IndicatorProgressBar extends View {
         startAngle = 135;
         indicatorStartAngle = -45;
 
+
         defaultTextMargin = 4;
+        indicatorWidth = (int) (32 * scaleFloat);
+        valueYoff = 0;
+        valueDesYoff = 0;
         valueMin = 0;
         valueMax = 100;
         value = valueMin;
@@ -161,6 +172,41 @@ public class IndicatorProgressBar extends View {
         subDesTv = "";
 
         isShowAxis = true;
+    }
+
+    public int getValueYoff() {
+        return px2dp(valueYoff);
+    }
+
+    /**
+     * 设置值在Y轴上的偏移量，可以为负
+     *
+     * @param valueYoff
+     */
+    public void setValueYoff(int valueYoff) {
+        this.valueYoff = dp2px(valueYoff);
+    }
+
+
+    public int getIndicatorWidth() {
+        return px2dp(indicatorWidth);
+    }
+
+    public void setIndicatorWidth(int indicatorWidth) {
+        this.indicatorWidth = dp2px(indicatorWidth);
+    }
+
+    public int getValueDesYoff() {
+        return px2dp(valueDesYoff);
+    }
+
+    /**
+     * 设置值描述在Y轴上的偏移量，可以为负
+     *
+     * @param valueDesYoff
+     */
+    public void setValueDesYoff(int valueDesYoff) {
+        this.valueDesYoff = dp2px(valueDesYoff);
     }
 
     public int getValue() {
@@ -483,9 +529,9 @@ public class IndicatorProgressBar extends View {
         mCenterTextPaint.getTextBounds(value + tvUnit, 0, (value + tvUnit).length(), rectValue);
         mCenterSubPaint.getTextBounds(subDesTv, 0, subDesTv.length(), rectSubDes);
         float xValue = (mWidth - rectValue.width()) / 2;
-        float yValue = mHeight / 2 - defaultTextMargin * scaleFloat;
+        float yValue = mHeight / 2 - valueYoff * scaleFloat;
         float xSub = (mWidth - rectSubDes.width()) / 2;
-        float ySub = mHeight / 2 + rectSubDes.height() + defaultTextMargin * scaleFloat;
+        float ySub = mHeight / 2 + rectSubDes.height() + valueDesYoff * scaleFloat;
         canvas.drawText(value + tvUnit, xValue, yValue, mCenterTextPaint);
         canvas.drawText(subDesTv, xSub, ySub, mCenterSubPaint);
 
@@ -582,8 +628,10 @@ public class IndicatorProgressBar extends View {
         int width = bitmapIndicator.getWidth();
         int height = bitmapIndicator.getHeight();
         float scale = height * 1f / width;
+        //宽度24dp
 //        RectF rectDst2 = new RectF(indicatorXCenter - 50, (int) (indicatorYCenter - 25 * scale), indicatorXCenter, (int) (indicatorYCenter + 25 * scale));
-        RectF rectDst2 = new RectF(mWidth / 2 - radius - 50, mHeight / 2 - 25 * scale, mWidth / 2 - radius, mHeight / 2 + 25 * scale);
+        RectF rectDst2 = new RectF(mWidth / 2 - radius - indicatorWidth, mHeight / 2 - indicatorWidth * scale / 2,
+                mWidth / 2 - radius, mHeight / 2 + indicatorWidth * scale / 2);
 
         //思路1，旋转rect
         //pass 旋转rect，bitmap依旧不会改变，跟自己计算旋转后的rect坐标效果无异

@@ -25,4 +25,6 @@ dependencies {
     implementation project(':base')
     implementation project(':common-tool')
     implementation project(':custom-view')
+    //recyclerView
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
 }

@@ -1,4 +1,4 @@
-package com.local.sample;
+package com.local.sample.self;
 
 import android.app.Application;
 

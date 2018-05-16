@@ -23,6 +23,7 @@ public class RandomUtil {
 
     /**
      * 得到随机颜色，a通道默认是满值
+     *
      * @return
      */
     public static int getRandomColor() {
@@ -35,6 +36,7 @@ public class RandomUtil {
 
     /**
      * 得到随机的uuid
+     *
      * @param deleteLine 是否去除-
      * @return
      */
@@ -46,5 +48,41 @@ public class RandomUtil {
         } else {
             return uuid;
         }
+    }
+
+    /**
+     * 得到随机的一个范围内的随机值
+     *
+     * @param start range的开始
+     * @param end   range的结束
+     * @return 随机值，int型
+     */
+    public static int getRandomInRange(int start, int end) {
+        if (end <= start) {
+            throw new IllegalArgumentException("range is invalid!");
+        }
+        int range = end - start;
+        Random random = new Random();
+        random.nextInt(range + 1);
+        return start + range;
+    }
+
+    /**
+     * 得到随机的String，可能包含A~Z,a~z,0~9
+     *
+     * @param length 生成的string的长度
+     * @return 生成的随机String
+     */
+    public static String getRandomString(int length) {
+        String charPool = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < length; ++i) {
+            int number = random.nextInt(charPool.length());
+
+            sb.append(charPool.charAt(number));
+        }
+        return sb.toString().toLowerCase();
     }
 }

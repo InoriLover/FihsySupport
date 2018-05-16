@@ -39,6 +39,7 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
     private View content;
     private Mode alphaMode;
     private DrawerLayout drawerLayout;
+    private boolean isDrawerFit;    //drawerLayout是否缩进
     private View fakeStatusBarView;
     private View colorStatusBarView;
     private View maskView;
@@ -125,7 +126,7 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
             case NORMAL_COLOR:
             case DRAWER_LAYOUT:
                 //如果是6.0，检查是否使用白色款图标
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isUseLightIcon) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !isUseLightIcon) {
                     getWindow()
                             .getDecorView()
                             .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -136,7 +137,7 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
                 }
                 break;
             case IMAGE_TOOLBAR:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isUseLightIcon) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !isUseLightIcon) {
                     getWindow()
                             .getDecorView()
                             .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -224,7 +225,6 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
                 break;
         }
         isCreated = true;
-//        addTransparentView(context);
     }
 
     /**
@@ -243,7 +243,11 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
                 }
                 break;
             case DRAWER_LAYOUT:
-
+                if (isCreated) {
+                    changeDrawerLayoutStatusBar(color);
+                } else {
+                    createDrawerLayoutStatusBar(context, color);
+                }
                 break;
             case IMAGE_TOOLBAR:
                 //imageMode下不处理状态栏颜色
@@ -266,7 +270,11 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
                 }
                 break;
             case DRAWER_LAYOUT:
-
+                if (isCreated) {
+                    changeDrawerLayoutStatusBar(statusBarColor);
+                } else {
+                    createDrawerLayoutStatusBar(context, statusBarColor);
+                }
                 break;
             case IMAGE_TOOLBAR:
                 if (isCreated) {
@@ -353,21 +361,25 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
         if (drawerLayout == null) {
             throw new IllegalArgumentException("your drawerLayout should not be null!");
         }
+        ViewGroup contentLayout = (ViewGroup) drawerLayout.getChildAt(0);
+        ViewGroup drawer = (ViewGroup) drawerLayout.getChildAt(1);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
+            getWindow().setStatusBarColor(Color.argb(maskAlpha, 0, 0, 0));
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-        ViewGroup contentLayout = (ViewGroup) drawerLayout.getChildAt(0);
         if (fakeStatusBarView != null) {
             if (fakeStatusBarView.getVisibility() == View.GONE) {
                 fakeStatusBarView.setVisibility(View.VISIBLE);
             }
             fakeStatusBarView.setBackgroundColor(color);
         } else {
-            contentLayout.addView(createFakeStatusBarView(context, color), 0);
+            //如果有颜色，填充颜色bar
+            if(color!=Color.TRANSPARENT){
+                contentLayout.addView(createFakeStatusBarView(context, color), 0);
+            }
         }
         // 内容布局不是 LinearLayout 时,设置marginTop
         //用来腾出空间放置fakeStatusbarView
@@ -376,8 +388,27 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
             params.setMargins(params.leftMargin, params.topMargin + getStatusBarHeight(context),
                     params.rightMargin, params.bottomMargin);
         }
+        //drawer是否缩进
+        if (!isDrawerFit && drawer != null) {
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) drawer.getLayoutParams();
+            params.topMargin = getStatusBarHeight(this);
+            drawer.setLayoutParams(params);
+        }
         setDrawerLayoutProperty(drawerLayout, contentLayout);
         changeStatusIconStyle(Mode.IMAGE_TOOLBAR);
+    }
+
+    private void changeDrawerLayoutStatusBar(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.argb(maskAlpha, 0, 0, 0));
+            if(fakeStatusBarView!=null){
+                fakeStatusBarView.setBackgroundColor(color);
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if(fakeStatusBarView!=null){
+                fakeStatusBarView.setBackgroundColor(color);
+            }
+        }
     }
 
     /**
@@ -458,7 +489,12 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
      * @return
      */
     protected void setDrawerLayout(DrawerLayout drawerLayout) {
+        this.setDrawerLayout(drawerLayout, true);
+    }
+
+    protected void setDrawerLayout(DrawerLayout drawerLayout, boolean isDrawerFit) {
         this.drawerLayout = drawerLayout;
+        this.isDrawerFit = isDrawerFit;
     }
 
     /**

@@ -10,7 +10,6 @@ import android.graphics.Rect;
 import android.graphics.Shader;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -34,6 +33,11 @@ public class GradientScaleBar extends View {
     int mWidth;
     int mHeight;
     int mBarWidth;
+
+    // 最大值/最小值的Y轴偏移
+    int valueYOff;
+    //区间描述的Y轴偏移
+    int desYOff;
 
     //画笔
     Paint bkgBarPaint;
@@ -114,6 +118,9 @@ public class GradientScaleBar extends View {
         barHeight = (int) (20 * scaleFloat);
         scaleWidth = (int) (4 * scaleFloat);
 
+        valueYOff=0;
+        desYOff=0;
+
         valueMin = 0;
         valueMax = 100;
         scaleArray = new ArrayList<>();
@@ -142,6 +149,30 @@ public class GradientScaleBar extends View {
 
         initPaint();
         initTextPaint();
+    }
+
+    public int getValueYOff() {
+        return px2dp(valueYOff);
+    }
+
+    /**
+     * 最大值/最小值的Y轴偏移
+     * @param valueYOff
+     */
+    public void setValueYOff(int valueYOff) {
+        this.valueYOff = dp2px(valueYOff);
+    }
+
+    public int getDesYOff() {
+        return px2dp(desYOff);
+    }
+
+    /**
+     * 区间描述的Y轴偏移
+     * @param desYOff
+     */
+    public void setDesYOff(int desYOff) {
+        this.desYOff = dp2px(desYOff);
     }
 
     public int getValueTvColor() {
@@ -315,7 +346,7 @@ public class GradientScaleBar extends View {
         valuePaint.getTextBounds(minStr, 0, minStr.length(), rectMin);
         valuePaint.getTextBounds(maxStr, 0, maxStr.length(), rectMax);
         int minX = mWidth / 2 - mBarWidth / 2;
-        int minY = (int) (mHeight / 2 - barHeight / 2 - 4 * scaleFloat);
+        int minY = (int) (mHeight / 2 - barHeight / 2 - valueYOff * scaleFloat);
         int maxX = mWidth / 2 + mBarWidth / 2 - rectMax.width();
         int maxY = minY;
         canvas.drawText(minStr, minX, minY, valuePaint);
@@ -352,9 +383,9 @@ public class GradientScaleBar extends View {
                 String desText = desArray.get(i);
                 Rect rect = new Rect();
                 desPaint.getTextBounds(desText, 0, desText.length(), rect);
-                //绘制，默认给了8dp的MarginTop
+                //绘制，MarginTop
                 canvas.drawText(desText, center - rect.width() / 2,
-                        mHeight / 2 + barHeight / 2 + rect.height() + 8 * scaleFloat, desPaint);
+                        mHeight / 2 + barHeight / 2 + rect.height() + desYOff * scaleFloat, desPaint);
                 //再画刻度到最大值之间的
                 float lastX2 = endX;
                 float center2 = (scaleX + lastX2) / 2;
@@ -362,16 +393,16 @@ public class GradientScaleBar extends View {
                 Rect rect2 = new Rect();
                 desPaint.getTextBounds(desText2, 0, desText2.length(), rect2);
                 canvas.drawText(desText2, center2 - rect2.width() / 2,
-                        mHeight / 2 + barHeight / 2 + rect2.height() + 8 * scaleFloat, desPaint);
+                        mHeight / 2 + barHeight / 2 + rect2.height() + desYOff * scaleFloat, desPaint);
             } else if (i == 0) {   //画0~刻度的描述
                 float last = startX;
                 float center = (scaleX + last) / 2;
                 String desText = desArray.get(i);
                 Rect rect = new Rect();
                 desPaint.getTextBounds(desText, 0, desText.length(), rect);
-                //绘制，默认给了8dp的MarginTop
+                //绘制，MarginTop
                 canvas.drawText(desText, center - rect.width() / 2,
-                        mHeight / 2 + barHeight / 2 + rect.height() + 8 * scaleFloat, desPaint);
+                        mHeight / 2 + barHeight / 2 + rect.height() + desYOff * scaleFloat, desPaint);
             } else {
                 //画普通的刻度之间的描述
                 int lastValue = scaleArray.get(i - 1);
@@ -382,9 +413,9 @@ public class GradientScaleBar extends View {
                 String desText = desArray.get(i);
                 Rect rect = new Rect();
                 desPaint.getTextBounds(desText, 0, desText.length(), rect);
-                //绘制，默认给了8dp的MarginTop
+                //绘制，MarginTop
                 canvas.drawText(desText, center - rect.width() / 2,
-                        mHeight / 2 + barHeight / 2 + rect.height() + 8 * scaleFloat, desPaint);
+                        mHeight / 2 + barHeight / 2 + rect.height() + desYOff * scaleFloat, desPaint);
             }
 
         }

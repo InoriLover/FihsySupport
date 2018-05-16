@@ -8,28 +8,26 @@
     <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
-        android:name=".MainApplication"
+        android:name=".self.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon_slark"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MainActivity">
+        <activity android:name=".self.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".base.activity.SampleBaseAlphaActivity">
-
-        </activity>
-        <activity android:name=".base.activity.SampleBaseAlphaActivity2"></activity>
-        <activity android:name=".base.activity.SampleBaseAlphaActivity3"></activity>
-        <activity android:name=".customview.ColorIndicatorBarSample"></activity>
-        <activity android:name=".customview.CountDownProgressBarSample"></activity>
-        <activity android:name=".customview.GradientBarSample"></activity>
+        <activity android:name=".extra.base.activity.SampleBaseAlphaActivityColor"></activity>
+        <activity android:name=".extra.base.activity.SampleBaseAlphaActivityImg"></activity>
+        <activity android:name=".extra.base.activity.SampleBaseAlphaActivityDrawer"></activity>
+        <activity android:name=".extra.customview.ColorIndicatorBarSample"></activity>
+        <activity android:name=".extra.customview.CountDownProgressBarSample"></activity>
+        <activity android:name=".extra.customview.GradientBarSample"></activity>
     </application>
 
 </manifest>

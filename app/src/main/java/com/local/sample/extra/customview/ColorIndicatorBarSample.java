@@ -1,4 +1,4 @@
-package com.local.sample.customview;
+package com.local.sample.extra.customview;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -41,14 +41,17 @@ public class ColorIndicatorBarSample extends AppCompatActivity {
         });
 
         //配置indicator属性
-        mColorIndicatorProgressBar.setShowAxis(false);
+        mColorIndicatorProgressBar.setShowAxis(true);
         //指标针往内部嵌入的off
         mColorIndicatorProgressBar.setRingAxisOff(6);
+        mColorIndicatorProgressBar.setIndicatorWidth(32);
         mColorIndicatorProgressBar.setLowTv("低");
         mColorIndicatorProgressBar.setNormalTv("一般");
         mColorIndicatorProgressBar.setHighTv("高");
         mColorIndicatorProgressBar.setSubDesTv("健康宝宝几率");
         mColorIndicatorProgressBar.setTvUnit("%");
+        mColorIndicatorProgressBar.setValueYoff(4);
+        mColorIndicatorProgressBar.setValueDesYoff(4);
         mColorIndicatorProgressBar.setRingValueColor(getResources().getColor(R.color.gray));
         mColorIndicatorProgressBar.setRingValueSize(14);
         mColorIndicatorProgressBar.setRangeColor(getResources().getColor(R.color.colorPrimary));

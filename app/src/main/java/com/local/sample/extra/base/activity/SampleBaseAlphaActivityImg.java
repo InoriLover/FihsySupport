@@ -1,4 +1,4 @@
-package com.local.sample.base.activity;
+package com.local.sample.extra.base.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +14,7 @@ import fishy.support.base.activity.BaseAlphaActivity;
  * Created by DN2017030300 on 2018/5/3.
  */
 
-public class SampleBaseAlphaActivity2 extends BaseAlphaActivity{
+public class SampleBaseAlphaActivityImg extends BaseAlphaActivity{
     SeekBar seekBar;
     ImageView imgMiku;
 
@@ -23,6 +23,7 @@ public class SampleBaseAlphaActivity2 extends BaseAlphaActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample_base_alpha_image);
         initView();
+        setUseLightIcon(true);
     }
 
     private void initView() {
