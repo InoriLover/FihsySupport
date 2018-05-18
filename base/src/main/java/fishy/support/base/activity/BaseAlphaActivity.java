@@ -2,6 +2,7 @@ package fishy.support.base.activity;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -9,6 +10,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -224,7 +226,6 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
                 createDrawerLayoutStatusBar(context, statusBarColor);
                 break;
         }
-        isCreated = true;
     }
 
     /**
@@ -304,12 +305,13 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             View view = new View(this);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    getStatusBarHeight(context)));
+                    getStatusBarHeight(this)));
             view.setBackgroundColor(color);
             root.addView(view, 0);
             colorStatusBarView = view;
         }
         changeStatusIconStyle(Mode.NORMAL_COLOR);
+        isCreated = true;
     }
 
     /**
@@ -322,7 +324,7 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(calculateStatusColor(color, maskAlpha));
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            colorStatusBarView.setBackgroundColor(color);
+            colorStatusBarView.setBackgroundColor(calculateStatusColor(color, maskAlpha));
         }
     }
 
@@ -338,6 +340,7 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
         }
         addTransparentView(this);
         changeStatusIconStyle(Mode.IMAGE_TOOLBAR);
+        isCreated = true;
     }
 
     /**
@@ -347,7 +350,7 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             maskView.setBackgroundColor(Color.argb(maskAlpha, 0, 0, 0));
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            maskView.setBackgroundColor(Color.argb(maskAlpha, 0, 0, 0));
         }
     }
 
@@ -369,6 +372,12 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.argb(maskAlpha, 0, 0, 0));
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            View view = new View(this);
+            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    getStatusBarHeight(this)));
+            view.setBackgroundColor(color);
+            root.addView(view);
+            colorStatusBarView = view;
         }
         if (fakeStatusBarView != null) {
             if (fakeStatusBarView.getVisibility() == View.GONE) {
@@ -377,7 +386,7 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
             fakeStatusBarView.setBackgroundColor(color);
         } else {
             //如果有颜色，填充颜色bar
-            if(color!=Color.TRANSPARENT){
+            if (color != Color.TRANSPARENT) {
                 contentLayout.addView(createFakeStatusBarView(context, color), 0);
             }
         }
@@ -396,16 +405,18 @@ public abstract class BaseAlphaActivity extends AppCompatActivity {
         }
         setDrawerLayoutProperty(drawerLayout, contentLayout);
         changeStatusIconStyle(Mode.IMAGE_TOOLBAR);
+        isCreated = true;
     }
 
     private void changeDrawerLayoutStatusBar(int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.argb(maskAlpha, 0, 0, 0));
-            if(fakeStatusBarView!=null){
+            if (fakeStatusBarView != null) {
                 fakeStatusBarView.setBackgroundColor(color);
             }
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if(fakeStatusBarView!=null){
+            colorStatusBarView.setBackgroundColor(Color.argb(maskAlpha, 0, 0, 0));
+            if (fakeStatusBarView != null) {
                 fakeStatusBarView.setBackgroundColor(color);
             }
         }

@@ -28,13 +28,13 @@ public class SampleBaseAlphaActivityDrawer extends BaseAlphaActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample_base_alpha_drawer);
         initView();
-        setStatusColor(Color.TRANSPARENT);
+        setStatusColor(getResources().getColor(R.color.pink));
         setUseLightIcon(true);
     }
 
     private void initView() {
         drawerLayout = findViewById(R.id.drawerLayout);
-        setDrawerLayout(drawerLayout,false);
+        setDrawerLayout(drawerLayout,true);
         btnRandomColor = findViewById(R.id.btnRandomColor);
         toolbar=findViewById(R.id.toolBar);
         seekBar = findViewById(R.id.seekbar);

@@ -42,6 +42,8 @@ public class CountDownProgressBar extends View {
     int indicatorRadius;
     int indicatorRingWidth;
 
+    boolean isReverse;  //是否反向计时
+
     //bitmap，待绘制的rect等资源
     Bitmap bubbleBitmap;
     RectF rectBubble;
@@ -102,15 +104,28 @@ public class CountDownProgressBar extends View {
         indicatorRadius = (int) (8 * scaleFloat);
         indicatorRingWidth = (int) (3 * scaleFloat);
 
+        isReverse = true;
         //默认60s
         totalTime = 60;
         countFlag = false;
     }
 
+    public boolean isReverse() {
+        return isReverse;
+    }
+
+    public void setReverse(boolean reverse) {
+        isReverse = reverse;
+    }
+
     public void setRemainSecond(int second) {
         if (countFlag) {
             this.remainSecond = second;
-            setProgress(second * 100 / totalTime);
+            if (isReverse) {
+                setProgress(100 - (second * 100 / totalTime));
+            } else {
+                setProgress(second * 100 / totalTime);
+            }
         }
     }
 
@@ -384,7 +399,7 @@ public class CountDownProgressBar extends View {
         } else {
             waitDrawText = textStart;
         }
-        Log.i(TAG,waitDrawText);
+        Log.i(TAG, waitDrawText);
         Rect rectCountText = new Rect();
         mTextPaint.getTextBounds(waitDrawText, 0, waitDrawText.length(), rectCountText);
         canvas.drawText(waitDrawText, mWidth / 2 - rectCountText.width() / 2,
