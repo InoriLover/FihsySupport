@@ -1,8 +1,15 @@
 package com.local.sample.extra.customview;
 
+import android.animation.FloatEvaluator;
+import android.animation.IntEvaluator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 import android.widget.SeekBar;
 
 import com.local.sample.R;
@@ -16,13 +23,31 @@ import fishy.support.view.CountDownProgressBar;
 public class CountDownProgressBarSample extends AppCompatActivity {
     CountDownProgressBar countDownProgressBar;
     SeekBar seekBar;
+    Button btnAdd;
+    Button btnSub;
     int totalTime = 40;
+    Button btnSmooth;
+    Button btnStable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample_count_down_progressbar);
         countDownProgressBar = findViewById(R.id.countDownProgressBar);
+        btnSmooth=findViewById(R.id.btnSmooth);
+        btnStable=findViewById(R.id.btnStable);
+        btnSmooth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startAnimFloat();
+            }
+        });
+        btnStable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startAnimInt();
+            }
+        });
         seekBar = findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -57,5 +82,38 @@ public class CountDownProgressBarSample extends AppCompatActivity {
         countDownProgressBar.setIndicatorColorOut(getResources().getColor(R.color.white));
         countDownProgressBar.setIndicatorRadius(8);
         countDownProgressBar.setIndicatorRingWidth(4);
+    }
+
+    void startAnimFloat() {
+        ValueAnimator mAnimator;
+        mAnimator = ValueAnimator.ofObject(new FloatEvaluator(), 0, 100);
+        // 设置差值器
+        mAnimator.setInterpolator(new LinearInterpolator());
+        mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float) animation.getAnimatedValue();
+                countDownProgressBar.setProgress(value);
+            }
+        });
+
+        mAnimator.setDuration((long) (1000*30));
+        mAnimator.start();
+    }
+    void startAnimInt() {
+        ValueAnimator mAnimator;
+        mAnimator = ValueAnimator.ofObject(new IntEvaluator(), 0, 100);
+        // 设置差值器
+        mAnimator.setInterpolator(new LinearInterpolator());
+        mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int value = (int) animation.getAnimatedValue();
+                countDownProgressBar.setProgress(value);
+            }
+        });
+
+        mAnimator.setDuration((long) (1000*30));
+        mAnimator.start();
     }
 }

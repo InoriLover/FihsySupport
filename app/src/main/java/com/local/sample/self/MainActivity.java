@@ -16,6 +16,7 @@ import com.local.sample.extra.base.activity.SampleBaseAlphaActivityDrawer;
 import com.local.sample.extra.customview.ColorIndicatorBarSample;
 import com.local.sample.extra.customview.CountDownProgressBarSample;
 import com.local.sample.extra.customview.GradientBarSample;
+import com.local.sample.extra.customview.PalletViewSample;
 import com.local.sample.self.adapter.SimpleGuideAdapter;
 
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         guideAdapter = new SimpleGuideAdapter(createGuideItems(), this);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(guideAdapter);
     }
 
@@ -108,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
                 "CountDownProgressBar", CountDownProgressBarSample.class));
         items.add(new SimpleGuideAdapter.GuideItem(
                 "GradientBar", GradientBarSample.class));
+        items.add(new SimpleGuideAdapter.GuideItem(
+                "PalletView", PalletViewSample.class));
         return items;
     }
 }

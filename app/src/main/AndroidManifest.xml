@@ -28,6 +28,7 @@
         <activity android:name=".extra.customview.ColorIndicatorBarSample"></activity>
         <activity android:name=".extra.customview.CountDownProgressBarSample"></activity>
         <activity android:name=".extra.customview.GradientBarSample"></activity>
+        <activity android:name=".extra.customview.PalletViewSample"></activity>
     </application>
 
 </manifest>

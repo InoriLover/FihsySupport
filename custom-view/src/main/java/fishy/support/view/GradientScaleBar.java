@@ -346,7 +346,7 @@ public class GradientScaleBar extends View {
         valuePaint.getTextBounds(minStr, 0, minStr.length(), rectMin);
         valuePaint.getTextBounds(maxStr, 0, maxStr.length(), rectMax);
         int minX = mWidth / 2 - mBarWidth / 2;
-        int minY = (int) (mHeight / 2 - barHeight / 2 - valueYOff * scaleFloat);
+        int minY = (int) (mHeight / 2 - barHeight / 2 - valueYOff );
         int maxX = mWidth / 2 + mBarWidth / 2 - rectMax.width();
         int maxY = minY;
         canvas.drawText(minStr, minX, minY, valuePaint);
@@ -385,7 +385,7 @@ public class GradientScaleBar extends View {
                 desPaint.getTextBounds(desText, 0, desText.length(), rect);
                 //绘制，MarginTop
                 canvas.drawText(desText, center - rect.width() / 2,
-                        mHeight / 2 + barHeight / 2 + rect.height() + desYOff * scaleFloat, desPaint);
+                        mHeight / 2 + barHeight / 2 + rect.height() + desYOff , desPaint);
                 //再画刻度到最大值之间的
                 float lastX2 = endX;
                 float center2 = (scaleX + lastX2) / 2;
@@ -393,7 +393,7 @@ public class GradientScaleBar extends View {
                 Rect rect2 = new Rect();
                 desPaint.getTextBounds(desText2, 0, desText2.length(), rect2);
                 canvas.drawText(desText2, center2 - rect2.width() / 2,
-                        mHeight / 2 + barHeight / 2 + rect2.height() + desYOff * scaleFloat, desPaint);
+                        mHeight / 2 + barHeight / 2 + rect2.height() + desYOff , desPaint);
             } else if (i == 0) {   //画0~刻度的描述
                 float last = startX;
                 float center = (scaleX + last) / 2;
@@ -402,7 +402,7 @@ public class GradientScaleBar extends View {
                 desPaint.getTextBounds(desText, 0, desText.length(), rect);
                 //绘制，MarginTop
                 canvas.drawText(desText, center - rect.width() / 2,
-                        mHeight / 2 + barHeight / 2 + rect.height() + desYOff * scaleFloat, desPaint);
+                        mHeight / 2 + barHeight / 2 + rect.height() + desYOff , desPaint);
             } else {
                 //画普通的刻度之间的描述
                 int lastValue = scaleArray.get(i - 1);
@@ -415,7 +415,7 @@ public class GradientScaleBar extends View {
                 desPaint.getTextBounds(desText, 0, desText.length(), rect);
                 //绘制，MarginTop
                 canvas.drawText(desText, center - rect.width() / 2,
-                        mHeight / 2 + barHeight / 2 + rect.height() + desYOff * scaleFloat, desPaint);
+                        mHeight / 2 + barHeight / 2 + rect.height() + desYOff , desPaint);
             }
 
         }

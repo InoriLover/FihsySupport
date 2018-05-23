@@ -1,6 +1,7 @@
-package fishy.support.util;
+package fishy.support.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -25,7 +26,15 @@ public class PalletView extends View {
     }
 
     void initAttrs() {
+        TypedArray a = null;
+        try {
 
+        } finally {
+            // 注意，别忘了 recycle
+            if (a != null) {
+                a.recycle();
+            }
+        }
     }
 
     void init() {

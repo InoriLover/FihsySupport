@@ -67,7 +67,7 @@ public class CountDownProgressBar extends View {
     //基本通用配置
     float scaleFloat;
     Context context;
-    int progress;
+    float progress;
 
     final String textStart = "开始";
     final String secondUnit = "S";
@@ -129,7 +129,8 @@ public class CountDownProgressBar extends View {
         }
     }
 
-    private void setProgress(int progress) {
+
+    public void setProgress(float progress) {
         this.progress = progress;
         postInvalidate();
     }
@@ -378,13 +379,13 @@ public class CountDownProgressBar extends View {
         //画点
         canvas.drawOval(rectPoint, mPointPaint);
         //画进度弧线
-        int angle = (int) (360 * progress * 1f / 100);
+        float angle = 360 * progress * 1f / 100;
         canvas.drawArc(rectRingBar, -90, angle, false, mProgressLinePaint);
         //画指示器,内外环
-        int xOff = (int) (Math.sin(2 * Math.PI * angle / 360) * mRingWidth / 2);
-        int yOff = (int) (Math.cos(2 * Math.PI * angle / 360) * mRingWidth / 2);
-        int xEnd = mWidth / 2 + xOff;
-        int yEnd = mHeight / 2 - yOff;
+        float xOff = (float) (Math.sin(2 * Math.PI * angle / 360) * mRingWidth / 2);
+        float yOff = (float) (Math.cos(2 * Math.PI * angle / 360) * mRingWidth / 2);
+        float xEnd = mWidth / 2 + xOff;
+        float yEnd = mHeight / 2 - yOff;
         RectF rectIndicatorOut = new RectF(xEnd - indicatorRadius, yEnd - indicatorRadius,
                 xEnd + indicatorRadius, yEnd + indicatorRadius);
         int inRadius = indicatorRadius - indicatorRingWidth;
