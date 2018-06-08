@@ -59,5 +59,17 @@ public class PatternUtil {
         return m.matches();
     }
 
+    /**
+     * 是否为有效的网址
+     *
+     * @param link
+     * @return
+     */
+    public static boolean isValidLink(String link) {
+        String pattern = "^([hH][tT]{2}[pP]://|[hH][tT]{2}[pP][sS]://)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+$";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(link);
+        return m.matches();
+    }
 
 }

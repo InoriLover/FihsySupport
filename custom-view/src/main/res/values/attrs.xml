@@ -3,5 +3,12 @@
     <declare-styleable name="ColorIndicatorProgressBar">
 
     </declare-styleable>
-
+    <declare-styleable name="PointImageView">
+        <attr name="imgResource" format="reference" />
+        <attr name="pointColor" format="color" />
+        <attr name="layoutPadding" format="dimension" />
+        <attr name="pointSize" format="dimension" />
+        <attr name="pointMarginX" format="dimension" />
+        <attr name="pointMarginY" format="dimension" />
+    </declare-styleable>
 </resources>

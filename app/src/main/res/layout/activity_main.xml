@@ -12,44 +12,44 @@
         android:layout_height="match_parent" />
 
     <!--<Button-->
-        <!--android:id="@+id/btnNormalColor"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/sample_base_alpha_activity1"-->
-        <!--android:textAllCaps="false" />-->
+    <!--android:id="@+id/btnNormalColor"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/sample_base_alpha_activity1"-->
+    <!--android:textAllCaps="false" />-->
 
     <!--<Button-->
-        <!--android:id="@+id/btnImageHead"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/sample_base_alpha_activity2"-->
-        <!--android:textAllCaps="false" />-->
+    <!--android:id="@+id/btnImageHead"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/sample_base_alpha_activity2"-->
+    <!--android:textAllCaps="false" />-->
 
     <!--<Button-->
-        <!--android:id="@+id/btnDrawerlayout"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/sample_base_alpha_activity3"-->
-        <!--android:textAllCaps="false" />-->
+    <!--android:id="@+id/btnDrawerlayout"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/sample_base_alpha_activity3"-->
+    <!--android:textAllCaps="false" />-->
 
     <!--<Button-->
-        <!--android:id="@+id/btnColorIndicatorBar"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/sample_color_indicator_progressbar"-->
-        <!--android:textAllCaps="false" />-->
+    <!--android:id="@+id/btnColorIndicatorBar"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/sample_color_indicator_progressbar"-->
+    <!--android:textAllCaps="false" />-->
 
     <!--<Button-->
-        <!--android:id="@+id/btnCountDownProgressBar"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/sample_count_down_progressbar"-->
-        <!--android:textAllCaps="false" />-->
+    <!--android:id="@+id/btnCountDownProgressBar"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/sample_count_down_progressbar"-->
+    <!--android:textAllCaps="false" />-->
 
     <!--<Button-->
-        <!--android:id="@+id/btnGradientBar"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/sample_gradient_bar"-->
-        <!--android:textAllCaps="false" />-->
+    <!--android:id="@+id/btnGradientBar"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/sample_gradient_bar"-->
+    <!--android:textAllCaps="false" />-->
 </LinearLayout>
