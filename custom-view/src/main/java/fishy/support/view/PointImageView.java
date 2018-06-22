@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import fishy.support.util.DeviceInfoUtil;
 
@@ -83,7 +84,7 @@ public class PointImageView extends FrameLayout {
         imgContent = new ImageView(context);
         LayoutParams params = new LayoutParams(mWidth,
                 mHeight);
-        params.gravity = Gravity.CENTER;
+//        params.gravity = Gravity.CENTER;
         imgContent.setLayoutParams(params);
         imgContent.setImageResource(imgResId);
 
@@ -116,6 +117,9 @@ public class PointImageView extends FrameLayout {
         params.width = imgWidth;
         params.height = imgHeight;
         imgContent.setLayoutParams(params);
+        //重布局
+        imgContent.layout((int) layoutPadding, (int) layoutPadding,
+                (int) (imgWidth - layoutPadding), (int) (imgHeight - layoutPadding));
 
         int leftP = mWidth - pointSize - pointMarginX;
         int topP = pointMarginY;
