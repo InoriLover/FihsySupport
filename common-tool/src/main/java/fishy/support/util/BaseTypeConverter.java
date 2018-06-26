@@ -174,10 +174,9 @@ public class BaseTypeConverter {
     public static String bytesToHexString(byte[] value, boolean isUppercase) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < value.length; i++) {
-            int data = value[i];
-            if (value[i] < 0) {
-                data = 256 + value[i];
-            }
+            //int是32位，byte是8位，如果不去与，会存在补位为负
+            //该种写法避免这种问题
+            int data = value[i]&0xff;
             String dataStr = Integer.toHexString(data);
             if (isUppercase) {
                 dataStr.toUpperCase();
