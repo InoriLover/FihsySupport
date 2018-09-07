@@ -30,6 +30,7 @@
         <activity android:name=".extra.customview.GradientBarSample"></activity>
         <activity android:name=".extra.customview.PalletViewSample"></activity>
         <activity android:name=".extra.customview.PointImageViewSample"></activity>
+        <activity android:name=".extra.customview.SixEdgeArrowSample"></activity>
     </application>
 
 </manifest>

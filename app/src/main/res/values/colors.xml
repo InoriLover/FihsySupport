@@ -20,4 +20,10 @@
     <color name="gray">#9293A7</color>
     <color name="soft_gray">#BCBBC9</color>
     <color name="black">#000000</color>
+
+    <color name="indicator_red_1">#FEE1DD</color>
+    <color name="indicator_red_2">#FDC2BA</color>
+    <color name="indicator_red_3">#FBA395</color>
+    <color name="indicator_red_4">#FA8573</color>
+    <color name="indicator_red_5">#F96750</color>
 </resources>

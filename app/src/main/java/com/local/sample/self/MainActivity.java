@@ -18,10 +18,13 @@ import com.local.sample.extra.customview.CountDownProgressBarSample;
 import com.local.sample.extra.customview.GradientBarSample;
 import com.local.sample.extra.customview.PalletViewSample;
 import com.local.sample.extra.customview.PointImageViewSample;
+import com.local.sample.extra.customview.SixEdgeArrowSample;
 import com.local.sample.self.adapter.SimpleGuideAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fishy.support.view.SixEdgeArrow;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -114,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
                 "PalletView", PalletViewSample.class));
         items.add(new SimpleGuideAdapter.GuideItem(
                 "PointImageView", PointImageViewSample.class));
+        items.add(new SimpleGuideAdapter.GuideItem(
+                "SixEdgeArrow", SixEdgeArrowSample.class));
         return items;
     }
 }

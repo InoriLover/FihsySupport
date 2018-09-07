@@ -11,4 +11,20 @@
         <attr name="pointMarginX" format="dimension" />
         <attr name="pointMarginY" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="SixEdgeArrow">
+        <attr name="arrowHeight" format="dimension" />
+        <attr name="hintTextSize" format="dimension" />
+        <attr name="hintTextColor" format="color" />
+        <attr name="levelIcSize" format="dimension" />
+        <attr name="levelIcMargin" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="StepPillarView">
+        <attr name="arrowHeight" format="dimension" />
+        <attr name="hintTextSize" format="dimension" />
+        <attr name="hintTextColor" format="color" />
+        <attr name="levelIcSize" format="dimension" />
+        <attr name="levelIcMargin" format="dimension" />
+    </declare-styleable>
 </resources>
