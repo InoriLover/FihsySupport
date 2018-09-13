@@ -31,6 +31,9 @@
         <activity android:name=".extra.customview.PalletViewSample"></activity>
         <activity android:name=".extra.customview.PointImageViewSample"></activity>
         <activity android:name=".extra.customview.SixEdgeArrowSample"></activity>
+        <activity android:name=".extra.customview.StepPillarViewSample"></activity>
+        <activity android:name=".extra.customview.HrvRingSample"></activity>
+        <activity android:name=".extra.customview.VesselViewSample"></activity>
     </application>
 
 </manifest>

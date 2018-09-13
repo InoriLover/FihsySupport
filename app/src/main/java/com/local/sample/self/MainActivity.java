@@ -16,15 +16,20 @@ import com.local.sample.extra.base.activity.SampleBaseAlphaActivityDrawer;
 import com.local.sample.extra.customview.ColorIndicatorBarSample;
 import com.local.sample.extra.customview.CountDownProgressBarSample;
 import com.local.sample.extra.customview.GradientBarSample;
+import com.local.sample.extra.customview.HrvRingSample;
 import com.local.sample.extra.customview.PalletViewSample;
 import com.local.sample.extra.customview.PointImageViewSample;
 import com.local.sample.extra.customview.SixEdgeArrowSample;
+import com.local.sample.extra.customview.StepPillarViewSample;
+import com.local.sample.extra.customview.VesselViewSample;
 import com.local.sample.self.adapter.SimpleGuideAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import fishy.support.view.HrvRing;
 import fishy.support.view.SixEdgeArrow;
+import fishy.support.view.VesselView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -119,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
                 "PointImageView", PointImageViewSample.class));
         items.add(new SimpleGuideAdapter.GuideItem(
                 "SixEdgeArrow", SixEdgeArrowSample.class));
+        items.add(new SimpleGuideAdapter.GuideItem(
+                "StepPillarView", StepPillarViewSample.class));
+        items.add(new SimpleGuideAdapter.GuideItem(
+                "HrvRing", HrvRingSample.class));
+        items.add(new SimpleGuideAdapter.GuideItem(
+                "VesselView", VesselViewSample.class));
         return items;
     }
 }

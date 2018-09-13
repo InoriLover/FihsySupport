@@ -572,7 +572,7 @@ public class IndicatorProgressBar extends View {
         //
         // 第二步：绘制文字
 //        String text = ((int) (progress / maxProgress * 100)) + "";
-//        String text = value + "";
+//        String text = hrvValue + "";
 //        Rect bounds = new Rect();
 //        mTextPaint.getTextBounds(text, 0, text.length(), bounds);
 //        canvas.drawText(text, mWidth / 2 - bounds.width() / 2, mHeight / 2 + bounds.height() / 2, mTextPaint);

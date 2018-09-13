@@ -29,7 +29,7 @@ public class StepPillarView extends View {
     final String TAG = this.getClass().getSimpleName();
     float scaleFloat;
     Context context;
-    List<SixEdgeArrow.ArrowIndicator> indicators;
+    List<StepPillarView.ArrowIndicator> indicators;
     //画笔
     Paint mPaint;
     Paint textPaint;
@@ -49,6 +49,7 @@ public class StepPillarView extends View {
     //台阶的最底部，最顶部对应的坐标
     float stepMinY;
     float stepMaxY;
+    float stepWidth;
     float stepFullHeight;
     //台阶的区域所占总高的缩放比
     float stepContentScale;
@@ -110,13 +111,23 @@ public class StepPillarView extends View {
         rectLevelIc = new RectF();
         level = -1;
 
-        stepContentScale = 0.7f;
+        stepContentScale = 0.85f;
+    }
+
+    /**
+     * 设置当前的区域等级
+     *
+     * @param level
+     */
+    public void setCurrentLevel(int level) {
+        level = Math.min(indicators.size() - 1, Math.max(level, 0));
+        this.level = level;
     }
 
     /**
      * 设置当前显示用的数据
      */
-    public void setData(List<SixEdgeArrow.ArrowIndicator> indicators) {
+    public void setData(List<StepPillarView.ArrowIndicator> indicators) {
         this.indicators = indicators;
         //重新开数组
         int size = indicators.size();
@@ -165,13 +176,14 @@ public class StepPillarView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         mWidth = getMeasuredWidth();
         mHeight = getMeasuredHeight();
+        stepWidth = mWidth / indicators.size();
         stepFullHeight = mHeight * stepContentScale;
         stepMinY = (mHeight + stepFullHeight) / 2;
         stepMaxY = (mHeight - stepFullHeight) / 2;
 
         //todo
         //更新每个台阶区域的宽度
-        mPaint.setStrokeWidth(mWidth / indicators.size());
+        mPaint.setStrokeWidth(stepWidth);
         //绘制出所有的区域的path，待绘制
         int size = indicators.size();
         for (int i = 0; i < indicators.size(); i++) {
@@ -193,24 +205,28 @@ public class StepPillarView extends View {
 
         for (int i = 0; i < indicators.size(); i++) {
             mPaint.setColor(areaColorArray[i]);
-            canvas.drawLine();
+            mPaint.setStrokeWidth(stepWidth);
+            float currentHeight = stepMinY - stepFullHeight * (i + 1) / indicators.size();
+            canvas.drawLine(pathStartXArray[i] + stepWidth / 2, stepMinY,
+                    pathStartXArray[i] + stepWidth / 2, currentHeight, mPaint);
 
             Rect rect = new Rect();
             textPaint.getTextBounds(hintTextArrray[i], 0, hintTextArrray[i].length(), rect);
             int width = rect.width();
-            float textY = ((mHeight + arrowHeight) / 2) + rect.height();
-            canvas.drawText(hintTextArrray[i], pathCenterXArray[i] - (width / 2)
+            float textY = stepMinY + rect.height();
+            canvas.drawText(hintTextArrray[i], pathStartXArray[i] + stepWidth / 2 - width / 2
                     , textY, textPaint);
-        }
 
-        if (level != -1) {
-            float left = pathCenterXArray[level] - (levelIconSize / 2);
-            float bottom = (mHeight - arrowHeight) / 2 - levelIcMargin;
-            float right = left + levelIconSize;
-            float top = bottom - levelIconSize;
+            //需要判断是否为选中的level
+            if (level != -1 && level == i) {
+                float left = pathStartXArray[level] + stepWidth / 2 - levelIconSize / 2;
+                float bottom = currentHeight - levelIcMargin;
+                float right = left + levelIconSize;
+                float top = bottom - levelIconSize;
 
-            rectLevelIc.set(left, top, right, bottom);
-            canvas.drawBitmap(levelBmpArray[level], null, rectLevelIc, bmpPaint);
+                rectLevelIc.set(left, top, right, bottom);
+                canvas.drawBitmap(levelBmpArray[level], null, rectLevelIc, bmpPaint);
+            }
         }
 
     }

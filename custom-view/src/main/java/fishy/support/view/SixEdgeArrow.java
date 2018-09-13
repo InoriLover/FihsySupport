@@ -159,7 +159,8 @@ public class SixEdgeArrow extends View {
 
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void
+    onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         mWidth = getMeasuredWidth();
         mHeight = getMeasuredHeight();
@@ -168,8 +169,8 @@ public class SixEdgeArrow extends View {
         for (int i = 0; i < indicators.size(); i++) {
             areaColorArray[i] = indicators.get(i).getColor();
             hintTextArrray[i] = indicators.get(i).getHintText();
-            float start = mWidth * i / size + getPaddingLeft();
-            float end = mWidth * (i + 1) / size + getPaddingLeft();
+            float start = mWidth * i / size;
+            float end = mWidth * (i + 1) / size;
             float middle = end / scaleArrowHead + start * (scaleArrowHead - 1) / scaleArrowHead;
             pathCenterXArray[i] = middle;
             Log.i(TAG, middle + "");

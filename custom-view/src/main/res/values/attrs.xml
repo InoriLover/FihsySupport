@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="hintTextSize" format="dimension" />
+    <attr name="hintTextColor" format="color" />
+    <attr name="levelIcSize" format="dimension" />
+    <attr name="levelIcMargin" format="dimension" />
+
     <declare-styleable name="ColorIndicatorProgressBar">
 
     </declare-styleable>
@@ -14,17 +19,42 @@
 
     <declare-styleable name="SixEdgeArrow">
         <attr name="arrowHeight" format="dimension" />
-        <attr name="hintTextSize" format="dimension" />
-        <attr name="hintTextColor" format="color" />
-        <attr name="levelIcSize" format="dimension" />
-        <attr name="levelIcMargin" format="dimension" />
+        <attr name="hintTextSize" />
+        <attr name="hintTextColor" />
+        <attr name="levelIcSize" />
+        <attr name="levelIcMargin" />
     </declare-styleable>
 
     <declare-styleable name="StepPillarView">
-        <attr name="arrowHeight" format="dimension" />
-        <attr name="hintTextSize" format="dimension" />
-        <attr name="hintTextColor" format="color" />
-        <attr name="levelIcSize" format="dimension" />
-        <attr name="levelIcMargin" format="dimension" />
+        <attr name="hintTextSize" />
+        <attr name="hintTextColor" />
+        <attr name="levelIcSize" />
+        <attr name="levelIcMargin" />
+    </declare-styleable>
+
+    <declare-styleable name="HrvRing">
+        <attr name="ringBkgColor" format="color" />
+        <attr name="ringProgressColor" format="color" />
+        <attr name="pointRingWidth" format="dimension" />
+        <attr name="ringWidth" format="dimension" />
+        <attr name="ringRadius" format="dimension" />
+        <attr name="desTvOffset" format="dimension" />
+        <attr name="minValue" format="float" />
+        <attr name="maxValue" format="float" />
+        <attr name="scaleWidth" format="dimension" />
+        <attr name="scaleColor" format="color" />
+        <attr name="desTvColor" format="color" />
+        <attr name="centerValueColor" format="color" />
+        <attr name="desTvSize" format="dimension" />
+        <attr name="centerValueSize" format="dimension" />
+        <attr name="hrvValue" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="VesselView">
+        <attr name="mainTvColor" format="color" />
+        <attr name="secondTvColor" format="color" />
+        <attr name="mainTvSize" format="dimension" />
+        <attr name="secondTvSize" format="dimension" />
+        <attr name="indicatorWidth" format="dimension" />
     </declare-styleable>
 </resources>

@@ -26,4 +26,15 @@
     <color name="indicator_red_3">#FBA395</color>
     <color name="indicator_red_4">#FA8573</color>
     <color name="indicator_red_5">#F96750</color>
+
+    <color name="indicator_blue_1">#E5EAFD</color>
+    <color name="indicator_blue_2">#CAD7F9</color>
+    <color name="indicator_blue_3">#B2C3F7</color>
+    <color name="indicator_blue_4">#97AFF5</color>
+    <color name="indicator_blue_5">#7D9BF1</color>
+
+    <color name="hrv_silver">#F3F3F3</color>
+    <color name="hrv_green">#45CA7B</color>
+    <color name="hrv_text_gray">#8F92A5</color>
+    <color name="hrv_text_black">#333333</color>
 </resources>
