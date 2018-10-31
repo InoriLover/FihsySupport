@@ -13,6 +13,7 @@ import com.local.sample.R;
 import com.local.sample.extra.base.activity.SampleBaseAlphaActivityColor;
 import com.local.sample.extra.base.activity.SampleBaseAlphaActivityImg;
 import com.local.sample.extra.base.activity.SampleBaseAlphaActivityDrawer;
+import com.local.sample.extra.customview.CardViewSample;
 import com.local.sample.extra.customview.ColorIndicatorBarSample;
 import com.local.sample.extra.customview.CountDownProgressBarSample;
 import com.local.sample.extra.customview.GradientBarSample;
@@ -130,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
                 "HrvRing", HrvRingSample.class));
         items.add(new SimpleGuideAdapter.GuideItem(
                 "VesselView", VesselViewSample.class));
+        items.add(new SimpleGuideAdapter.GuideItem(
+                "CardViewSample", CardViewSample.class));
         return items;
     }
 }

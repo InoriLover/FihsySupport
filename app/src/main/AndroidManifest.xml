@@ -34,6 +34,7 @@
         <activity android:name=".extra.customview.StepPillarViewSample"></activity>
         <activity android:name=".extra.customview.HrvRingSample"></activity>
         <activity android:name=".extra.customview.VesselViewSample"></activity>
+        <activity android:name=".extra.customview.CardViewSample"></activity>
     </application>
 
 </manifest>

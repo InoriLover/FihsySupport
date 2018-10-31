@@ -557,9 +557,9 @@ public class IndicatorProgressBar extends View {
 //        canvas.restore();
 
 //        Bitmap bitmapIndicator = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_indicator);
-//        int width = bitmapIndicator.getWidth();
-//        int height = bitmapIndicator.getHeight();
-//        float scale = height * 1f / width;
+//        int mWidth = bitmapIndicator.getWidth();
+//        int mHeight = bitmapIndicator.getHeight();
+//        float scale = mHeight * 1f / mWidth;
 //        Rect rectDst2 = new Rect(0, mHeight / 2, 50, (int) (mHeight / 2 + 50 * scale));
 //        canvas.drawBitmap(bitmapIndicator, null, rectDst2, mBitmapPaint);
 
@@ -575,7 +575,7 @@ public class IndicatorProgressBar extends View {
 //        String text = hrvValue + "";
 //        Rect bounds = new Rect();
 //        mTextPaint.getTextBounds(text, 0, text.length(), bounds);
-//        canvas.drawText(text, mWidth / 2 - bounds.width() / 2, mHeight / 2 + bounds.height() / 2, mTextPaint);
+//        canvas.drawText(text, mWidth / 2 - bounds.mWidth() / 2, mHeight / 2 + bounds.mHeight() / 2, mTextPaint);
     }
 
 

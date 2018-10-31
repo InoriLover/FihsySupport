@@ -4,6 +4,7 @@
     <attr name="hintTextColor" format="color" />
     <attr name="levelIcSize" format="dimension" />
     <attr name="levelIcMargin" format="dimension" />
+    <attr name="indicatorWidth" format="dimension" />
 
     <declare-styleable name="ColorIndicatorProgressBar">
 
@@ -55,6 +56,14 @@
         <attr name="secondTvColor" format="color" />
         <attr name="mainTvSize" format="dimension" />
         <attr name="secondTvSize" format="dimension" />
-        <attr name="indicatorWidth" format="dimension" />
+        <attr name="indicatorWidth" />
+    </declare-styleable>
+
+    <declare-styleable name="SimpleAreaBar">
+        <attr name="hintTextSize" />
+        <attr name="hintTextColor" />
+        <attr name="indicatorWidth" />
+        <attr name="barHeight" format="dimension"/>
+        <attr name="startMargin" format="dimension"/>
     </declare-styleable>
 </resources>

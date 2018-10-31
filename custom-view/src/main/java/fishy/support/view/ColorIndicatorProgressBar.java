@@ -180,6 +180,6 @@ public class ColorIndicatorProgressBar extends View {
 //        String text = hrvValue + "";
 //        Rect bounds = new Rect();
 //        mTextPaint.getTextBounds(text, 0, text.length(), bounds);
-//        canvas.drawText(text, mWidth / 2 - bounds.width() / 2, mHeight / 2 + bounds.height() / 2, mTextPaint);
+//        canvas.drawText(text, mWidth / 2 - bounds.mWidth() / 2, mHeight / 2 + bounds.mHeight() / 2, mTextPaint);
     }
 }
